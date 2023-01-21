@@ -135,7 +135,7 @@ namespace Common.Gen
                         Directory.CreateDirectory(pathDestination);
 
                     File.Copy(sourceFile, destinationFile, resource.ReplaceLocalFilesApplication);
-                    PrinstScn.WriteLine("{0} foi copiado", destinationFile);
+                    Print.WriteLine("{0} foi copiado", destinationFile);
                     filesOutput.Add(destinationFile);
                 }
             }
@@ -149,7 +149,7 @@ namespace Common.Gen
             {
                 var solutionSeedDestination = Path.Combine(resource.ResourceLocalPathDestinationFolrderApplication, string.Format("{0}.sln", contextName));
                 File.Copy(solutionSeedSource, solutionSeedDestination);
-                PrinstScn.WriteLine("{0} foi copiado", solutionSeedDestination);
+                Print.WriteLine("{0} foi copiado", solutionSeedDestination);
                 return solutionSeedDestination;
             }
             return null;

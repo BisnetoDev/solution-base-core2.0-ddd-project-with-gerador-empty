@@ -32,7 +32,7 @@ namespace Common.Gen
                 this._attemps++;
                 if (this._attemps <= 99)
                 {
-                    PrinstScn.WriteWarningLine(string.Format(">>>>> Retry {0} GetInstance {1} Erro: [{2}]", this._path, _attemps, ex.Message));
+                    Print.WriteWarningLine(string.Format(">>>>> Retry {0} GetInstance {1} Erro: [{2}]", this._path, _attemps, ex.Message));
                     Thread.Sleep(2000 * _attemps);
 
                     return GetInstance();

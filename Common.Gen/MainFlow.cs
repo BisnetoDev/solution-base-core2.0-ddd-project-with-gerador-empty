@@ -57,7 +57,7 @@ namespace Common.Gen
             if (args.FirstOrDefault() != "?")
             {
                 if (!executeFlow)
-                    PrinstScn.WriteLine("Fluxo Não implementado #");
+                    Print.WriteLine("[!]: Fluxo Não implementado");
 
                 Flow(new string[] { "?" }, sysObject);
             }
@@ -68,7 +68,7 @@ namespace Common.Gen
 
             if (sysObject.DisableCompleteFlow)
             {
-                PrinstScn.WriteWarningLine("Fluxo completo foi desabilitado para essa aplicação");
+                Print.WriteWarningLine("[!]: Fluxo completo foi desabilitado para essa aplicação");
                 Flow(args, sysObject);
             }
             else
@@ -77,7 +77,7 @@ namespace Common.Gen
                 if (args.FirstOrDefault() != "?")
                 {
                     if (!executeFlow)
-                        PrinstScn.WriteLine("Fluxo Não implementado #");
+                        Print.WriteLine("[!]: Fluxo Não implementado");
                 }
 
                 Flow(new string[] { "?" }, GetConfigExternarReources, sysObject);
@@ -98,7 +98,10 @@ namespace Common.Gen
                 flow = Console.ReadLine();
             }
             else if (args.FirstOrDefault() == "?")
+            {
                 OptionsClassic();
+                Console.Write("\n>> Escolha uma opção: ");
+            }
             else
                 flow = args.FirstOrDefault();
 
@@ -115,11 +118,13 @@ namespace Common.Gen
             if (args.Length == 0)
             {
                 Options();
+                Console.Write("\n>> Escolha uma opção: ");
                 flow = Console.ReadLine();
             }
             else if (args.FirstOrDefault() == "?")
             {
                 Options();
+                Console.Write("\n>> Escolha uma opção: ");
                 flow = Console.ReadLine();
             }
             else
@@ -130,14 +135,14 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.AtualizarAplicacao).ToString())
             {
-                PrinstScn.WriteLine("Clonar e Copiar para aplicação");
+                Print.WriteLine("[!]: Clonar e Copiar para aplicação");
                 HelperExternalResources.CloneAndCopy(GetConfigExternarReources());
                 result = true;
             }
 
             if (flow == ((int)Eflows.ReduzirArquivosParaCrudBasic).ToString())
             {
-                PrinstScn.WriteLine("Essa opção deleta diversos arquivos do Front SPA, tem certeza que deseja fazer isso? [S=Sim, N=Não]");
+                Print.WriteLine("[!]: Essa opção deleta diversos arquivos do Front SPA, tem certeza que deseja fazer isso? [S=Sim, N=Não]");
                 var confirmDelete = Console.ReadLine();
                 if (confirmDelete.ToLower() == "s")
                 {
@@ -151,14 +156,14 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.AtualizarAplicaoParcialmente).ToString())
             {
-                Console.WriteLine("Qual dos seguintes Projetos você deseja Atualizar:");
+                Console.WriteLine("[!]: Qual dos seguintes projetos você deseja atualizar:");
 
-                Console.WriteLine("[1 = >> template-gerador-back-core2.0-DDD]");
-                Console.WriteLine("[2 = >> framework-core2.0-common]");
-                Console.WriteLine("[3 = >> template-gerador-front-coreui-angular6.0]");
-                Console.WriteLine("[4 = >> framework-angular6.0-CRUD]");
-                Console.WriteLine("[5 = >> Seed-layout-front-coreui-angular6.0]");
-                Console.WriteLine("[6 = >> Gerador]");
+                Console.WriteLine("[1] - template-gerador-back-core2.0-DDD");
+                Console.WriteLine("[2] - framework-core2.0-common");
+                Console.WriteLine("[3] - template-gerador-front-coreui-angular6.0");
+                Console.WriteLine("[4] - framework-angular6.0-CRUD");
+                Console.WriteLine("[5] - Seed-layout-front-coreui-angular6.0");
+                Console.WriteLine("[6] - Gerador");
 
                 var resouceRepositoryNumberRead = Console.ReadLine();
                 HelperExternalResources.CloneAndCopy(FilterRepository(GetConfigExternarReources, resouceRepositoryNumberRead));
@@ -167,13 +172,13 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.GerarEstruturaParaNovoContexto).ToString())
             {
-                PrinstScn.WriteWarningLine("ATENÇÃO ESSE PROCEDIMENTO VAI BAIXAR DO GIT PROJETOS INICIAIS NAS PASTAS DE OUTPUT DO SEU PROJETO ATUAL. CASO SEU PROJETO AINDA ESTEJA COM O NOME DEFAULT SEED, ELE SERA SOBRESCRITO. AS CONFIGURAÇÕES DE OUTPUT ESTÃO NO APP.CONFIG DO GERADOR. TEM CERTEZA QUE DESEJA FAZER ISSO? (S=SIM/N=NÃO)");
+                Print.WriteWarningLine("[!!!]: ATENÇÃO ESSE PROCEDIMENTO VAI BAIXAR DO GIT PROJETOS INICIAIS NAS PASTAS DE OUTPUT DO SEU PROJETO ATUAL. CASO SEU PROJETO AINDA ESTEJA COM O NOME DEFAULT SEED, ELE SERA SOBRESCRITO. AS CONFIGURAÇÕES DE OUTPUT ESTÃO NO APP.CONFIG DO GERADOR. TEM CERTEZA QUE DESEJA FAZER ISSO? (S=SIM/N=NÃO)");
                 var continueClony = Console.ReadLine();
                 if (continueClony.ToLower() == "s")
                 {
                     var projectFiles = HelperExternalResources.CloneAndCopyStructureForNewContext(GetConfigExternarReources());
 
-                    Console.WriteLine("Digite o nome do novo Contexto");
+                    Console.WriteLine("[!]: Digite o nome do novo Contexto");
                     var contextName = Console.ReadLine();
                     FixRenameSeed.Fix(sysObject.GetOutputClassRoot(), contextName, false);
 
@@ -187,7 +192,6 @@ namespace Common.Gen
 
                     foreach (var file in filesFixContent)
                         FixRenameSeed.FixContentFile(contextName, file);
-
                 }
 
                 result = true;
@@ -195,7 +199,7 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.AtualizarAplicacaoSemcopiar).ToString())
             {
-                PrinstScn.WriteLine("Clonar apenas");
+                Print.WriteLine("[!]: Clonar apenas");
                 HelperExternalResources.CloneOnly(GetConfigExternarReources());
                 result = true;
             }
@@ -203,7 +207,7 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.AtualizarRepository).ToString())
             {
-                PrinstScn.WriteLine("Atualizar repositorio local com arquivos da aplicação");
+                Print.WriteLine("[!]: Atualizar repositorio local com arquivos da aplicação");
                 HelperExternalResources.UpdateLocalRepository(GetConfigExternarReources());
                 result = true;
             }
@@ -211,26 +215,26 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.FixFileNameToExtInApp).ToString())
             {
-                PrinstScn.WriteLine("Atualizar nomes dos Arquivos da aplicação para .Ext");
+                Print.WriteLine("[!]: Atualizar nomes dos Arquivos da aplicação para .Ext");
                 FixRenameExt.Fix(sysObject);
                 result = true;
             }
 
             if (flow == ((int)Eflows.RenomearProjeto).ToString())
             {
-                Console.WriteLine("[1 = >> Apenas Sistema de Arquivos]");
-                Console.WriteLine("[2 = >> Sistema de Arquivos e Conteúdo]");
+                Console.WriteLine("[1] - Apenas Sistema de Arquivos");
+                Console.WriteLine("[2] - Sistema de Arquivos e Conteúdo");
 
                 var Renameprocess = Console.ReadLine();
                 if (Renameprocess != "1" && Renameprocess != "2")
                 {
-                    Console.WriteLine("fluxo Não disponível");
+                    Console.WriteLine("[!]: fluxo Não disponível");
                     return true;
                 }
                 var replaceinContentFile = Renameprocess == "1" ? false : true;
 
 
-                PrinstScn.WriteLine("Definir nome do Projeto");
+                Print.WriteLine("[!]: Definir nome do Projeto");
                 var projectName = Console.ReadLine();
 
                 FixRenameSeed.Fix(sysObject.GetOutputClassRoot(), projectName, replaceinContentFile);
@@ -239,21 +243,21 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.RenomearUmaEntidadeDoSistema).ToString())
             {
-                Console.WriteLine("[1 = >> Apenas Sistema de Arquivos (Ignorar Case)]");
-                Console.WriteLine("[2 = >> Sistema de Arquivos e Conteúdo (Considerar Case)]");
+                Console.WriteLine("[1] - Apenas Sistema de Arquivos (Ignorar Case)]");
+                Console.WriteLine("[2] - Sistema de Arquivos e Conteúdo (Considerar Case)]");
 
                 var Renameprocess = Console.ReadLine();
                 if (Renameprocess != "1" && Renameprocess != "2")
                 {
-                    Console.WriteLine("fluxo Não disponível");
+                    Console.WriteLine("[!]: fluxo Não disponível");
                     return true;
                 }
                 var replaceinContentFile = Renameprocess == "1" ? false : true;
 
-                Console.WriteLine("Digite o nome da Entidade que Dejeja Renomear");
+                Console.WriteLine("[!]: Digite o nome da Entidade que Dejeja Renomear");
                 var termOrigin = Console.ReadLine();
 
-                Console.WriteLine("Digite o novo Nome");
+                Console.WriteLine("[!]: Digite o novo nome");
                 var termDestination = Console.ReadLine();
 
                 var _fromTo = new Dictionary<string, string> {
@@ -266,20 +270,23 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.RenomearEntidadesDoSistema).ToString())
             {
-                Console.WriteLine("[1 = >> Apenas Sistema de Arquivos]");
-                Console.WriteLine("[2 = >> Sistema de Arquivos e Conteúdo]");
+                Console.WriteLine("[1] - Apenas Sistema de Arquivos]");
+                Console.WriteLine("[2] - Sistema de Arquivos e Conteúdo]");
+                Console.WriteLine("======================================================================");
+                Console.WriteLine(">> ESSE PROCESSO É CASE SENSITIVE <<");
+                Console.WriteLine("======================================================================");
 
-                Console.WriteLine("<<<< Atenção esse processo é Case Sensitive >>>>>");
+                //Console.WriteLine("<<<< Atenção esse processo é Case Sensitive >>>>>");
 
                 var Renameprocess = Console.ReadLine();
                 if (Renameprocess != "1" && Renameprocess != "2")
                 {
-                    Console.WriteLine("fluxo Não disponível");
+                    Console.WriteLine("[!]: fluxo Não disponível");
                     return true;
                 }
                 var replaceinContentFile = Renameprocess == "1" ? false : true;
 
-                Console.WriteLine("Digite o Caminho do Arquivo , com a relação de Para separado por ;");
+                Console.WriteLine("[!]: Digite o Caminho do Arquivo , com a relação de Para separado por ;");
                 var filePath = Console.ReadLine();
                 var content = File.ReadAllLines(filePath);
 
@@ -296,7 +303,7 @@ namespace Common.Gen
                     Console.WriteLine($"{item.Key} >> {item.Value}");
 
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Confira as trocas e a ordenação e escolha sim ou não (s=Sim/n=Não)");
+                Console.WriteLine("[!]: Confira as trocas e a ordenação e escolha sim ou não (s=Sim/n=Não)");
                 var done = Console.ReadLine();
 
                 if (done == "s")
@@ -307,10 +314,10 @@ namespace Common.Gen
 
             if (flow == ((int)Eflows.ImportarArquivosDeOutroProjeto).ToString())
             {
-                Console.WriteLine("Digite a Namespace do projeto de Origem");
+                Console.WriteLine("[!]: Digite a Namespace do projeto de origem");
                 var originNamespace = Console.ReadLine();
 
-                Console.WriteLine("Digite o Caminho do projeto de Origem");
+                Console.WriteLine("[!]: Digite o caminho do projeto de origem");
                 var originPathRoot = Console.ReadLine();
 
                 HelperMigationToAnotherProject.DoMigation(sysObject, originPathRoot, originNamespace);
@@ -320,7 +327,7 @@ namespace Common.Gen
             if (flow == ((int)Eflows.LimparDadosSeed).ToString())
             {
 
-                PrinstScn.WriteLine("Limpar Diretorios do Seed");
+                Print.WriteLine("[!]: Limpar Diretorios do Seed");
                 FixRenameSeed.ClearEnd(sysObject.GetOutputClassRoot());
                 result = true;
             }
@@ -330,33 +337,38 @@ namespace Common.Gen
 
         private static void OptionsClassic()
         {
-            Console.WriteLine("Escolha as opções;");
-            Console.WriteLine("[{0} = >> Gerar Código ]", (int)Eflows.GerarCodigo);
-            Console.WriteLine("[{0} = >> Gerar Código de um Contexto ou Classe Especifica]", (int)Eflows.GerarCodigoEspecifico);
-            Console.WriteLine("[{0} = >> Abrir local do projeto", (int)Eflows.AbrirLocalDoProjeto);
-            Console.WriteLine("[{0} = >> Sair", (int)Eflows.Sair);
+            Console.WriteLine("======================================================================");
+            Console.WriteLine(">> ESCOLHA UMA OPÇÃO <<");
+            Console.WriteLine("======================================================================");
+            Console.WriteLine("[{0}] - Gerar código", (int)Eflows.GerarCodigo);
+            Console.WriteLine("[{0}] - Gerar código de um contexto ou classe especifica", (int)Eflows.GerarCodigoEspecifico);
+            Console.WriteLine("[{0}] - Abrir local do projeto", (int)Eflows.AbrirLocalDoProjeto);
+            Console.WriteLine("[{0}] - Encerrar", (int)Eflows.Sair);
         }
 
 
         private static void Options()
         {
-            Console.WriteLine("Escolha as opções;");
-            Console.WriteLine("[{0} = >> Clonar e Copiar para aplicação]", (int)Eflows.AtualizarAplicacao);
-            Console.WriteLine("[{0} = >> Atualizar repositorio local com arquivos da aplicação]", (int)Eflows.AtualizarRepository);
-            Console.WriteLine("[{0} = >> Gerar Código ]", (int)Eflows.GerarCodigo);
-            Console.WriteLine("[{0} = >> Gerar Código de um Contexto ou Classe Especifica]", (int)Eflows.GerarCodigoEspecifico);
-            Console.WriteLine("[{0} = >> Clonar apenas]", (int)Eflows.AtualizarAplicacaoSemcopiar);
-            Console.WriteLine("[{0} = >> Abrir local do projeto]", (int)Eflows.AbrirLocalDoProjeto);
-            Console.WriteLine("[{0} = >> Clonar e Copiar para aplicação parcialmente]", (int)Eflows.AtualizarAplicaoParcialmente);
-            Console.WriteLine("[{0} = >> Clonar e Criar novo Contexto]", (int)Eflows.GerarEstruturaParaNovoContexto);
+            Console.WriteLine("======================================================================");
+            Console.WriteLine(">> ESCOLHA UMA OPÇÃO <<");
+            Console.WriteLine("======================================================================");
+            Console.WriteLine("[{0}] - Clonar e copiar para aplicação", (int)Eflows.AtualizarAplicacao);
+            //Console.WriteLine("[{0} = >> Clonar e Copiar para aplicação]", (int)Eflows.AtualizarAplicacao);
+            Console.WriteLine("[{0}] - Atualizar repositório local com arquivos da aplicação", (int)Eflows.AtualizarRepository);
+            Console.WriteLine("[{0}] - Gerar código", (int)Eflows.GerarCodigo);
+            Console.WriteLine("[{0}] - Gerar código de um contexto ou classe especifica", (int)Eflows.GerarCodigoEspecifico);
+            Console.WriteLine("[{0}] - Clonar somente", (int)Eflows.AtualizarAplicacaoSemcopiar);
+            Console.WriteLine("[{0}] - Abrir local do projeto", (int)Eflows.AbrirLocalDoProjeto);
+            Console.WriteLine("[{0}] - Clonar e copiar para aplicação parcialmente", (int)Eflows.AtualizarAplicaoParcialmente);
+            Console.WriteLine("[{0}] - Clonar e criar novo contexto", (int)Eflows.GerarEstruturaParaNovoContexto);
             //Console.WriteLine("[{0} = >> Setar Arquivos Extensiveis como .ext]", (int)Eflows.FixFileNameToExtInApp);
-            Console.WriteLine("[{0} = >> Definir nome do Projeto]", (int)Eflows.RenomearProjeto);
-            Console.WriteLine("[{0} = >> Renomear Uma Entidade do Sistema]", (int)Eflows.RenomearUmaEntidadeDoSistema);
-            Console.WriteLine("[{0} = >> Renomear Entidades do Sistema]", (int)Eflows.RenomearEntidadesDoSistema);
-            Console.WriteLine("[{0} = >> Importar Arquivos de outro Projeto]", (int)Eflows.ImportarArquivosDeOutroProjeto);
-            Console.WriteLine("[{0} = >> Limpar Diretorios Sedd]", (int)Eflows.LimparDadosSeed);
-            Console.WriteLine("[{0} = >> Reduzir arquivos para Crud basic]", (int)Eflows.ReduzirArquivosParaCrudBasic);
-            Console.WriteLine("[{0} = >> Sair", (int)Eflows.Sair);
+            Console.WriteLine("[{0}] - Definir nome do projeto", (int)Eflows.RenomearProjeto);
+            Console.WriteLine("[{0}] - Renomear uma entidade do sistema", (int)Eflows.RenomearUmaEntidadeDoSistema);
+            Console.WriteLine("[{0}] - Renomear entidades do sistema", (int)Eflows.RenomearEntidadesDoSistema);
+            Console.WriteLine("[{0}] - Importar arquivos de outro projeto", (int)Eflows.ImportarArquivosDeOutroProjeto);
+            Console.WriteLine("[{0}] - Limpar diretórios seed", (int)Eflows.LimparDadosSeed);
+            Console.WriteLine("[{0}] - Reduzir arquivos para crud basic", (int)Eflows.ReduzirArquivosParaCrudBasic);
+            Console.WriteLine("[{0}] - Encerrar", (int)Eflows.Sair);
         }
 
         private static IDictionary<string, string> PrepareFromTo(Dictionary<string, string> _fromTo)
@@ -393,13 +405,13 @@ namespace Common.Gen
             Int32.TryParse(resouceRepositoryNumberRead, out int resouceRepositoryNumber);
             if (resouceRepositoryNumber <= 0 || resouceRepositoryNumber > 6)
             {
-                PrinstScn.WriteLine("Repositório inexistente");
+                Print.WriteLine("Repositório inexistente");
                 return null;
             }
 
             var repositories = new string[] { "template-gerador-back-core2.0-DDD", "framework-core2.0-common", "template-gerador-front-coreui-angular6.0", "framework-angular6.0-CRUD", "project-base-layout-front-coreui-angular6.0", "solution-base-core2.0-ddd-project-with-gerador-empty" };
             var resouceRepositoryName = repositories[resouceRepositoryNumber - 1];
-            PrinstScn.WriteLine(string.Format("Clonar e Copiar parcialmente para aplicação o repositorio: {0}", resouceRepositoryName));
+            Print.WriteLine(string.Format("Clonar e Copiar parcialmente para aplicação o repositorio: {0}", resouceRepositoryName));
             var result = GetConfigExternarReources().Where(_ => _.ResouceRepositoryName == resouceRepositoryName);
 
             //if (resouceRepositoryNumber == 6)
@@ -418,7 +430,7 @@ namespace Common.Gen
             var result = false;
             if (flow == ((int)Eflows.GerarCodigo).ToString())
             {
-                PrinstScn.WriteLine("Gerar direto na pasta dos projetos? [S=Sim, N=Não]");
+                Print.WriteLine("Gerar direto na pasta dos projetos? [S=Sim, N=Não]");
                 var usePathProjects = Console.ReadLine();
 
                 MainWithOutConfirmation(args, usePathProjects.ToLower() == "s", sysObject);
@@ -433,7 +445,7 @@ namespace Common.Gen
                     MainEspecificClass(args, args.LastOrDefault().ToLower() == "s", sysObject);
                 else
                 {
-                    PrinstScn.WriteLine("Gerar direto na pasta dos projetos? [S=Sim, N=Não]");
+                    Print.WriteLine("Gerar direto na pasta dos projetos? [S=Sim, N=Não]");
                     var usePathProjects = Console.ReadLine();
                     MainWithConfirmation(args, usePathProjects.ToLower() == "s", sysObject);
                 }
@@ -460,15 +472,15 @@ namespace Common.Gen
 
         private static void MainWithConfirmation(string[] args, bool UsePathProjects, HelperSysObjectsBase sysObject)
         {
-            PrinstScn.WriteLine("Atualizando / Criando Contextos ou classes especificas!");
+            Print.WriteLine("Atualizando / Criando Contextos ou classes especificas!");
             foreach (var item in sysObject.Contexts)
             {
 
-                PrinstScn.WriteLine("Deseja Atualizar/Criar o Contexto? {0} [S=Sim, N=Não]", item.Namespace);
+                Print.WriteLine("Deseja Atualizar/Criar o Contexto? {0} [S=Sim, N=Não]", item.Namespace);
                 var accept = Console.ReadLine();
                 if (accept.ToLower() == "s")
                 {
-                    PrinstScn.WriteLine("Deseja Escolher uma classe, Digite o nome dela?");
+                    Print.WriteLine("Deseja Escolher uma classe, Digite o nome dela?");
                     var className = Console.ReadLine();
 
                     if (!string.IsNullOrEmpty(className))
@@ -484,7 +496,7 @@ namespace Common.Gen
 
         private static void MainEspecificClass(string[] args, bool UsePathProjects, HelperSysObjectsBase sysObject)
         {
-            PrinstScn.WriteLine($"Atualizando / Criando Contextos ou classes especificas! [{args.LastOrDefault()}]");
+            Print.WriteLine($"Atualizando / Criando Contextos ou classes especificas! [{args.LastOrDefault()}]");
             foreach (var item in sysObject.Contexts)
             {
                 sysObject.MakeClass(item, args[1], UsePathProjects);
@@ -494,11 +506,11 @@ namespace Common.Gen
 
         private static void MainWithOutConfirmation(string[] args, bool UsePathProjects, HelperSysObjectsBase sysObject)
         {
-            PrinstScn.WriteLine("Atualizando / Criando todos os Contextos");
+            Print.WriteLine("Atualizando / Criando todos os Contextos");
 
             foreach (var item in sysObject.Contexts)
             {
-                PrinstScn.WriteLine("{0} - {1}", item.Namespace, item.Arquiteture);
+                Print.WriteLine("{0} - {1}", item.Namespace, item.Arquiteture);
                 sysObject.MakeClass(item, UsePathProjects);
             }
         }

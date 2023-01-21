@@ -65,7 +65,7 @@ namespace Common.Domain
                 result = true;
             }
 
-            PrinstScn.WriteLine("");
+            Print.WriteLine("");
             System.Threading.Thread.Sleep(3000);
             process.Close();
             return result;

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gerador.Gen.Core;
 
 namespace Seed.Gen
 {
@@ -12,6 +13,9 @@ namespace Seed.Gen
     {
         static void Main(string[] args)
         {
+            var Splash = new SplashScreen();
+            Splash.Run();
+
             HelperFlow.Flow(args, () =>
             {
 

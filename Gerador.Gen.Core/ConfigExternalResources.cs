@@ -22,8 +22,6 @@ namespace Seed.Gen
 
         private ExternalResource ConfigExternarResourcesTemplatesBackDDDCore20(bool replaceLocalFilesApplication)
         {
-
-
             return new ExternalResource
             {
                 ReplaceLocalFilesApplication = true,
@@ -32,12 +30,10 @@ namespace Seed.Gen
                 ResourceLocalPathFolderExecuteCloning = HelperUri.CombineAbsoluteUri(this._basicPathProject, @"Outros\Repositorios"),
                 ResourceLocalPathDestinationFolrderApplication = HelperUri.CombineAbsoluteUri(this._basicPathProject, @"solution-base-core2.0-ddd-project-with-gerador-empty\Gerador.Gen.Core\Templates\Back"),
             };
-
         }
 
         private ExternalResource ConfigExternarResourcesTemplatesBackDDD(bool replaceLocalFilesApplication)
         {
-
             return new ExternalResource
             {
                 ReplaceLocalFilesApplication = true,
@@ -46,7 +42,6 @@ namespace Seed.Gen
                 ResourceLocalPathFolderExecuteCloning = HelperUri.CombineAbsoluteUri(this._basicPathProject, @"Outros\Repositorios"),
                 ResourceLocalPathDestinationFolrderApplication = HelperUri.CombineAbsoluteUri(this._basicPathProject, @"solution-base-core2.0-ddd-project-with-gerador-empty\Gerador.Gen.Core\Templates\Back"),
             };
-
         }
 
         private ExternalResource ConfigExternarResourcesFrameworkCommon(bool replaceLocalFilesApplication)
@@ -66,7 +61,6 @@ namespace Seed.Gen
 
         private ExternalResource ConfigExternarResourcesFrameworkCommon20(bool replaceLocalFilesApplication)
         {
-
             return new ExternalResource
             {
                 ReplaceLocalFilesApplication = true,
@@ -76,7 +70,6 @@ namespace Seed.Gen
                 ResourceLocalPathFolderExecuteCloning = HelperUri.CombineAbsoluteUri(this._basicPathProject, @"Outros\Repositorios"),
                 ResourceLocalPathDestinationFolrderApplication = HelperUri.CombineAbsoluteUri(this._basicPathProject, @"solution-base-core2.0-ddd-project-with-gerador-empty\"),
             };
-
         }
 
         private ExternalResource ConfigExternarResourcesProjectBaseLayoutCoreUIAngular60(bool replaceLocalFilesApplication)
@@ -197,7 +190,6 @@ namespace Seed.Gen
         {
             var replaceLocalFilesApplication = true;
             return StackV30(replaceLocalFilesApplication);
-
         }
 
         private IEnumerable<ExternalResource> StackV30(bool replaceLocalFilesApplication)

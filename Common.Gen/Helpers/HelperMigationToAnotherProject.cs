@@ -32,7 +32,7 @@ namespace Common.Gen
                 {
                     var newFilePath = file.FullName.Replace(originPathRoot, ctx.OutputClassRoot).Replace(originNamespace, ctx.Namespace);
                     filesToMigrationsDestination.Add(newFilePath);
-                    PrinstScn.WriteLine("rename file {0} to list destination", file);
+                    Print.WriteLine("rename file {0} to list destination", file);
 
                     var pathBase = new FileInfo(newFilePath).DirectoryName;
                     if (!Directory.Exists(pathBase))
@@ -45,7 +45,7 @@ namespace Common.Gen
 
             foreach (var item in filesToMigrationsDestination)
             {
-                PrinstScn.WriteLine("Final Path : {0}", item);
+                Print.WriteLine("Final Path : {0}", item);
             }
 
         }
@@ -68,7 +68,7 @@ namespace Common.Gen
                 foreach (var file in files)
                 {
                     filesToMigrationsOrigin.Add(file);
-                    PrinstScn.WriteLine("add {0} to list origin", file);
+                    Print.WriteLine("add {0} to list origin", file);
                 }
             }
         }

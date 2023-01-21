@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Domain
 {
-    public static class PrinstScn
+    public static class Print
     {
         public static void WriteLine(string format, params object[] args)
         {

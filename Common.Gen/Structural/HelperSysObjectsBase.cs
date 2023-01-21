@@ -1655,7 +1655,7 @@ namespace Common.Gen
                 attemps += 1;
                 if (attemps <= 99)
                 {
-                    PrinstScn.WriteWarningLine(string.Format(">>>>> Retry Open Connection {0} Erro: [{1}]", attemps, ex.Message));
+                    Print.WriteWarningLine(string.Format(">>>>> Retry Open Connection {0} Erro: [{1}]", attemps, ex.Message));
                     Thread.Sleep(2000 * attemps);
                     return Open(connectionString, attemps);
                 }
@@ -1859,7 +1859,7 @@ namespace Common.Gen
                 attemps += 1;
                 if (attemps <= 99)
                 {
-                    PrinstScn.WriteWarningLine(string.Format(">>>>> Retry {0} GetReletaedIntancesComplementedClasses {1} Erro: [{2}]", currentTableName, attemps, ex.Message));
+                    Print.WriteWarningLine(string.Format(">>>>> Retry {0} GetReletaedIntancesComplementedClasses {1} Erro: [{2}]", currentTableName, attemps, ex.Message));
                     Thread.Sleep(2000 * attemps);
                     return GetReletaedIntancesComplementedClasses(config, currentTableName, attemps);
                 }
@@ -1894,7 +1894,7 @@ namespace Common.Gen
                 attemps += 1;
                 if (attemps <= 99)
                 {
-                    PrinstScn.WriteWarningLine(string.Format(">>>>> Retry {0} GetReletaedClasses {1} - Erro: [{2}]", currentTableName, attemps, ex.Message));
+                    Print.WriteWarningLine(string.Format(">>>>> Retry {0} GetReletaedClasses {1} - Erro: [{2}]", currentTableName, attemps, ex.Message));
                     Thread.Sleep(2000 * attemps);
                     return GetReletaedClasses(config, currentTableName, attemps);
                 }
@@ -2102,7 +2102,7 @@ namespace Common.Gen
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.CursorLeft = 10;
-            PrinstScn.WriteLine(string.Format("{0} iniciada [{1}]", tableInfo.TableName, qtd));
+            Print.WriteLine(string.Format("{0} iniciada [{1}]", tableInfo.TableName, qtd));
 
 
             DefineTemplateByTableInfoFields(config, tableInfo, CastOrdenabledToUniqueListInfo(infos));
@@ -2169,7 +2169,7 @@ namespace Common.Gen
                 if (attemps <= 99)
                 {
                     this.Open(config.ConnectionString);
-                    PrinstScn.WriteWarningLine(string.Format(">>>>> Retry {0} GetInfoSysObjectsComplete {1} Erro: [{2}]", tableInfo.TableName, attemps, ex.Message));
+                    Print.WriteWarningLine(string.Format(">>>>> Retry {0} GetInfoSysObjectsComplete {1} Erro: [{2}]", tableInfo.TableName, attemps, ex.Message));
                     Thread.Sleep(2000 * attemps);
                     return GetInfoSysObjectsComplete(config, tableInfo, attemps);
                 }
@@ -2210,7 +2210,7 @@ namespace Common.Gen
                 attemps += 1;
                 if (attemps <= 99)
                 {
-                    PrinstScn.WriteWarningLine(string.Format(">>>>> Retry {0} GetInfoSysObjectsBasic {1} Erro: [{2}]", tableName, attemps, ex.Message));
+                    Print.WriteWarningLine(string.Format(">>>>> Retry {0} GetInfoSysObjectsBasic {1} Erro: [{2}]", tableName, attemps, ex.Message));
                     Thread.Sleep(2000 * attemps);
                     return GetInfoSysObjectsBasic(config, tableName, attemps);
                 }
